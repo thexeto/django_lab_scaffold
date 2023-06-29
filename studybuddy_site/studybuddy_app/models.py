@@ -13,7 +13,7 @@ class Meetup(models.Model):
     start_time = models.DateTimeField("start time")
     end_time = models.DateTimeField("end time", null=True, blank=True)
 
-    # participants = models.models.ManyToManyField(User)
+    participants = models.ManyToManyField(User)
 
     class Meta:
         ordering = ["title"]
