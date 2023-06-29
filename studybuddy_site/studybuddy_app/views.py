@@ -4,12 +4,14 @@ from django.http import HttpResponse
 
 from .models import Meetup
 
+from django.template import loader
+
 
 def index(request):
-    next_meetups_list = Meetup.objects.order_by("start_time")[:5]
-    output = "Hello, world. You're at the studybuddy index."
-    output += ", ".join([m.title for m in next_meetups_list])
-    return HttpResponse(output)
+    meetup_list = Meetup.objects.order_by("start_time")[:5]
+    template = loader.get_template("studybuddy_app/index.html")
+    context = {"meetup_list": meetup_list}
+    return HttpResponse(template.render(context, request))
 
 
 def detail(request, meetup_id):
