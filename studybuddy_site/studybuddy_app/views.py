@@ -9,9 +9,8 @@ from django.template import loader
 
 def index(request):
     meetup_list = Meetup.objects.order_by("start_time")[:5]
-    template = loader.get_template("studybuddy_app/index.html")
     context = {"meetup_list": meetup_list}
-    return HttpResponse(template.render(context, request))
+    return render(request, "studybuddy_app/index.html", context)
 
 
 def detail(request, meetup_id):
