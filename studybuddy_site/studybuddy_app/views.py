@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.http import HttpResponse
 
@@ -13,10 +13,7 @@ def index(request):
 
 
 def detail(request, meetup_id):
-    try: 
-        meetup = Meetup.objects.get(pk=meetup_id)
-    except Meetup.DoesNotExist:
-        raise Http404(f"Meetup {meetup_id} not found.")
+    meetup = get_object_or_404(Meetup, pk=meetup_id)
     context = {"meetup": meetup}
     return render(request, "studybuddy_app/detail.html", context)
 
