@@ -7,7 +7,7 @@ from .models import Meetup
 
 
 def index(request):
-    meetup_list = Meetup.objects.order_by("start_time")[:5]
+    meetup_list = Meetup.objects.order_by("start_time")[:10]
     context = {"meetup_list": meetup_list}
     return render(request, "studybuddy_app/index.html", context)
 

@@ -1,2 +1,14 @@
 
 {{ meetup }}
+
+
+<h1>Meetup: {{ meetup.title }}</h1>
+
+<h2>Participants</h2>
+<ul>
+{% for participant in meetup.participants.all %}
+
+<li>{{ participant.get_full_name }}({{ participant.get_username }})</li>
+
+{% endfor %}
+</ul>

@@ -1,7 +1,8 @@
 {% if meetup_list %}
     <ul>
     {% for meetup in meetup_list %}
-        <li><a href="/buddy/{{ meetup.id }}/">{{ meetup.id }}. {{ meetup.title }}</a></li>
+            
+        <li><a href="{% url 'meetup.detail' meetup.id %}">{{ meetup.id }}. {{ meetup.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
