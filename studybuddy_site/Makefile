@@ -8,10 +8,10 @@ django:
 - python3 manage.py runserver ${port}
 
 makemigration:
-- python manage.py makemigrations studybuddy_app
+- python3 manage.py makemigrations studybuddy_app
 
 migrate:
-- python manage.py migrate
+- python3 manage.py migrate
 
 admin:
 - open http://127.0.0.1:${port}/admin
