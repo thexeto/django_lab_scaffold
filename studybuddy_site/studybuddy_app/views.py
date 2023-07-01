@@ -20,3 +20,9 @@ def detail(request, meetup_id):
 def rsvp(request, meetup_id):
     return HttpResponse("You rsvp on meetup %s." % meetup_id)
 
+
+# if request.method =='POST':  # comes here when you are making a post request via submitting the form
+#         # Register user
+#         redirect()
+#     else:  # if you are making a get request, then code goes to this block
+#         return render(request,'accounts/register.html')  # this is for rendering the html page when you hit the url
