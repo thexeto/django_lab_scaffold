@@ -1,23 +1,32 @@
-<li><a href="/studybuddy/">StudyBuddy</a></li>
-
-
 
 {% extends "base.html" %}
 {% block title %}Meetups{% endblock %}
 {% block content %}
 
 <h1>Meetups</h1>
+<a href="{% url "studybuddy_app:meetup.new" %}">New Meetup</a>
+
 
 {% if meetup_list %}
-    <ul>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">title</th>
+        <th scope="col">id</th>
+      </tr>
+    </thead>
+    <tbody>
     {% for meetup in meetup_list %}
-            
-        <li><a href="{% url 'studybuddy_app:meetup.path_meetups_pk' meetup.id %}">{{ meetup.title }} (id: {{ meetup.id }})</a></li>
+    <tr>
+        <td><a href="{% url 'studybuddy_app:meetup.path_meetups_pk' meetup.id %}">{{ meetup.title }}</a></td>
+        <td>(id: {{ meetup.id }})</td>
+      </tr>
     {% endfor %}
-    </ul>
+    </tbody>
+</table>
 {% else %}
     <p>No Meetups are available.</p>
 {% endif %}
 
-<a href="{% url "studybuddy_app:meetup.new" %}">New Meetup</a>
+
 {% endblock content %}

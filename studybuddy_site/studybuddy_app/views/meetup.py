@@ -1,11 +1,13 @@
+import datetime
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
-
+from django.contrib import messages
+from ..forms import MeetupForm
 from ..models import Meetup
-import datetime
+
 
 # https://docs.djangoproject.com/en/4.2/ref/class-based-views/generic-display/#listview
 
@@ -40,7 +42,9 @@ def path_meetups_pk(request, pk):
     raise Http404("Page not found.")
 
 def new(request):
+    meetup_form = MeetupForm()
     context = {"meetup": None,
+               "meetup_form": meetup_form,
                "http_method": 'POST',
                "action_url": reverse('studybuddy_app:meetup.path_meetups'),
                "button_text": 'Create'
@@ -50,21 +54,46 @@ def new(request):
 
 def edit(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
+    return meetup_form(request, meetup, pk)
+
+
+def meetup_form(request, meetup, pk=None):
+    if pk is None:
+        action_url = reverse('studybuddy_app:meetup.path_meetups')
+    else:
+        action_url = reverse(
+            'studybuddy_app:meetup.path_meetups_pk',
+            args=[pk])
+        
+    meetup_form = MeetupForm(instance=meetup)
     context = {"meetup": meetup,
                "http_method": 'POST',
-               "action_url": reverse('studybuddy_app:meetup.path_meetups_pk', args=[pk]),
+               "meetup_form": meetup_form,
+               "action_url": action_url,
                "button_text": 'Save'}
     return render(request, "studybuddy_app/meetup_form.html", context)
 
 
 def create(request):
-    title = request.POST["title"]
-    meetup = Meetup(title=title,
-                    start_time=timezone.now() + datetime.timedelta(days=1))
-    meetup.save()
-    return HttpResponseRedirect(
-        reverse("studybuddy_app:meetup.path_meetups_pk",
-                args=[meetup.id]))
+    # title = request.POST["title"]
+    # meetup = Meetup(title=title,
+    #                 start_time=timezone.now() + datetime.timedelta(days=1))
+    # meetup.save()
+    # return HttpResponseRedirect(
+    #     reverse("studybuddy_app:meetup.path_meetups_pk",
+    #             args=[meetup.id]))
+    meetup_form = MeetupForm(request.POST, request.FILES)
+    if meetup_form.is_valid():
+        meetup = meetup_form.save()
+        messages.success(request, ('Your meetup was successfully added!'))
+        
+        return HttpResponseRedirect(
+            reverse("studybuddy_app:meetup.path_meetups_pk",
+                    args=[meetup.id]))
+    else:
+        messages.error(request, 'Error saving form')
+        return meetup_form(request, meetup)
+    
 
 
 def update(request, meetup):
@@ -89,12 +118,23 @@ def delete(request, pk):
 
 
 
+
+# Create your views here.
+def homepage(request):
+    if request.method == "POST":
+        movie_form = MovieForm(request.POST, request.FILES)
+        if movie_form.is_valid():
+            movie_form.save()
+            messages.success(request, ('Your movie was successfully added!'))
+        else:
+            messages.error(request, 'Error saving form')
+        
+        
+        return redirect("main:homepage")
+    movie_form = MovieForm()
+    movies = Movie.objects.all()
+    return render(request=request, template_name="main/home.html", context={'movie_form':movie_form, 'movies':movies})
+
 def rsvp(request, meetup_id):
     return HttpResponse("You rsvp on meetup %s." % meetup_id)
 
-
-# if request.method =='POST':  # comes here when you are making a post request via submitting the form
-#         # Register user
-#         redirect()
-#     else:  # if you are making a get request, then code goes to this block
-#         return render(request,'accounts/register.html')  # this is for rendering the html page when you hit the url
