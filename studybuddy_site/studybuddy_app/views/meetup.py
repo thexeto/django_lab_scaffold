@@ -11,27 +11,23 @@ import datetime
 
 
 class IndexView(generic.ListView):
-    template_name = "studybuddy_app/meetup_index.html"
-    context_object_name = "meetup_list"
-    
+    model = Meetup
+
     def get_queryset(self):
         return Meetup.objects.filter(
-            start_time__gte = timezone.now())
-        
-    def put(self, request, *args, **kwargs):
-        return edit(request)
+            start_time__gte=timezone.now())
 
     def post(self, request, *args, **kwargs):
         return create(request)
 
-    
-def path_meetups(request):
-    if request.method == 'GET':
-        return index(request)
-    elif request.method == 'POST':
-        return create(request)
-    raise Http404("Page not found.")
 
+class DetailView(generic.DetailView):
+    model = Meetup
+
+    def post(self, request, *args, **kwargs):
+        meetup = self.get_object()
+        return update(request, meetup)
+    
 
 def path_meetups_pk(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
@@ -43,28 +39,19 @@ def path_meetups_pk(request, pk):
         return delete(request, meetup)
     raise Http404("Page not found.")
 
-
-def index(request):
-    meetup_list = Meetup.objects.filter(start_time__gte = timezone.now())
-    #meetup_list = Meetup.objects.order_by("start_time") # [:10]
-    context = {"meetup_list": meetup_list}
-    return render(request, "studybuddy_app/meetup_index.html", context)
-
-
 def new(request):
     context = {"meetup": None,
                "http_method": 'POST',
-               'method': 'POST',
                "action_url": reverse('studybuddy_app:meetup.path_meetups'),
                "button_text": 'Create'
                }
     return render(request, "studybuddy_app/meetup_form.html", context)
 
+
 def edit(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
-    context = {"meetup": meetup, 
+    context = {"meetup": meetup,
                "http_method": 'POST',
-               'method': 'PUT',
                "action_url": reverse('studybuddy_app:meetup.path_meetups_pk', args=[pk]),
                "button_text": 'Save'}
     return render(request, "studybuddy_app/meetup_form.html", context)
@@ -88,8 +75,6 @@ def update(request, meetup):
                 args=[meetup.id]))
 
 
-
-
 def detail(request, meetup):
     context = {"meetup": meetup,
                "view": "detail"}
@@ -99,7 +84,9 @@ def detail(request, meetup):
 def delete(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
     meetup.delete()
-    return index(request)
+    return HttpResponseRedirect(
+        reverse("studybuddy_app:meetup.path_meetups"))
+
 
 
 def rsvp(request, meetup_id):
