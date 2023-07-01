@@ -1,3 +1,11 @@
+<li><a href="/studybuddy/">StudyBuddy</a></li>
+
+
+
+{% extends "base.html" %}
+{% block title %}Meetups{% endblock %}
+{% block content %}
+
 <h1>Meetups</h1>
 
 {% if meetup_list %}
@@ -12,3 +20,4 @@
 {% endif %}
 
 <a href="{% url "studybuddy_app:meetup.new" %}">New Meetup</a>
+{% endblock content %}

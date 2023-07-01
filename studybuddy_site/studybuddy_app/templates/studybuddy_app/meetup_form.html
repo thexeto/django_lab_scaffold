@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Edit Meetup{% endblock %}
+{% block content %}
+
+
 <h1>Edit Meetup</h1>
 <form action="{{ action_url }}" method="{{ http_method }}">
     {% csrf_token %}
@@ -10,3 +15,5 @@
     </fieldset>
     <input type="submit" value="{{ button_text }}">
 </form>
+
+{% endblock content %}
