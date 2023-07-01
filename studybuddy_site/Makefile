@@ -36,3 +36,6 @@ pytest_all:
 
 pytest_system:
 - pytest studybuddy_app/tests_selenium
+
+venv_install:
+- ./venv/bin/pip install -r requirements.txt

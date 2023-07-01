@@ -1,11 +1,12 @@
 from django.urls import path
 from .views import user as user_views
 from .views import meetup as meetup_views
+from .views.meetup import IndexView as MeetupIndexView
 
 app_name = "studybuddy_app"
 
 urlpatterns = [
-    path("", meetup_views.index, name="index"),
+    path("", MeetupIndexView.as_view(), name="index"),
     path("<int:pk>/", meetup_views.detail, name="meetup.path_meetups_pk"),
     path("<int:pk>/rsvp/", meetup_views.rsvp, name="meetup.rsvp"),
 
@@ -13,7 +14,7 @@ urlpatterns = [
     path("meetups/<int:pk>/delete", meetup_views.delete, name="meetup.delete"),
     path("meetups/<int:pk>/edit", meetup_views.edit, name="meetup.edit"),
     path("meetups/<int:pk>/", meetup_views.path_meetups_pk, name="meetup.path_meetups_pk"),
-    path("meetups", meetup_views.path_meetups, name="meetup.path_meetups"),
+    path("meetups", MeetupIndexView.as_view(), name="meetup.path_meetups"),
 
     path("users/<int:pk>", user_views.detail, name="user.detail")
 ]

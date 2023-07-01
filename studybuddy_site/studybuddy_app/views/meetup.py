@@ -2,11 +2,29 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.utils import timezone
+from django.views import generic
 
 from ..models import Meetup
 import datetime
 
+# https://docs.djangoproject.com/en/4.2/ref/class-based-views/generic-display/#listview
 
+
+class IndexView(generic.ListView):
+    template_name = "studybuddy_app/meetup_index.html"
+    context_object_name = "meetup_list"
+    
+    def get_queryset(self):
+        return Meetup.objects.filter(
+            start_time__gte = timezone.now())
+        
+    def put(self, request, *args, **kwargs):
+        return edit(request)
+
+    def post(self, request, *args, **kwargs):
+        return create(request)
+
+    
 def path_meetups(request):
     if request.method == 'GET':
         return index(request)
@@ -36,9 +54,19 @@ def index(request):
 def new(request):
     context = {"meetup": None,
                "http_method": 'POST',
+               'method': 'POST',
                "action_url": reverse('studybuddy_app:meetup.path_meetups'),
                "button_text": 'Create'
                }
+    return render(request, "studybuddy_app/meetup_form.html", context)
+
+def edit(request, pk):
+    meetup = get_object_or_404(Meetup, pk=pk)
+    context = {"meetup": meetup, 
+               "http_method": 'POST',
+               'method': 'PUT',
+               "action_url": reverse('studybuddy_app:meetup.path_meetups_pk', args=[pk]),
+               "button_text": 'Save'}
     return render(request, "studybuddy_app/meetup_form.html", context)
 
 
@@ -60,13 +88,6 @@ def update(request, meetup):
                 args=[meetup.id]))
 
 
-def edit(request, pk):
-    meetup = get_object_or_404(Meetup, pk=pk)
-    context = {"meetup": meetup, 
-               "http_method": 'POST',
-               "action_url": reverse('studybuddy_app:meetup.path_meetups_pk', args=[pk]),
-               "button_text": 'Save'}
-    return render(request, "studybuddy_app/meetup_form.html", context)
 
 
 def detail(request, meetup):
