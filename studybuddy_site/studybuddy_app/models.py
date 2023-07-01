@@ -2,9 +2,9 @@
 # Fields: https://docs.djangoproject.com/en/4.2/ref/models/fields/
 
 import datetime
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 class Meetup(models.Model):
@@ -13,8 +13,8 @@ class Meetup(models.Model):
     start_time = models.DateTimeField("start time")
     end_time = models.DateTimeField("end time", null=True, blank=True)
 
-    participants = models.ManyToManyField(User)
-
+    participants = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    
     class Meta:
         ordering = ["title"]
 

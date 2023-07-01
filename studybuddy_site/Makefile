@@ -4,7 +4,7 @@
 port=4711
 
 django:
-- open http://127.0.0.1:${port}/buddy
+- open http://127.0.0.1:${port}/studybuddy
 - python3 manage.py runserver ${port}
 
 makemigration:
@@ -15,3 +15,6 @@ migrate:
 
 admin:
 - open http://127.0.0.1:${port}/admin
+
+django_source:
+- code /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/django

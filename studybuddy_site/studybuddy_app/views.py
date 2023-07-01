@@ -5,17 +5,16 @@ from django.http import HttpResponse
 from .models import Meetup
 
 
-
 def index(request):
     meetup_list = Meetup.objects.order_by("start_time")[:10]
     context = {"meetup_list": meetup_list}
-    return render(request, "studybuddy_app/index.html", context)
+    return render(request, "studybuddy_app/meetup_index.html", context)
 
 
 def detail(request, meetup_id):
     meetup = get_object_or_404(Meetup, pk=meetup_id)
     context = {"meetup": meetup}
-    return render(request, "studybuddy_app/detail.html", context)
+    return render(request, "studybuddy_app/meetup_detail.html", context)
 
 
 def rsvp(request, meetup_id):
