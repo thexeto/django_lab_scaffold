@@ -21,3 +21,6 @@ django_source:
 
 open:
 - open http://127.0.0.1:8000/studybuddy
+
+test:
+- python3 manage.py test studybuddy_app
