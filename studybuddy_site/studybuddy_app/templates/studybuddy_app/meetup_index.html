@@ -1,10 +1,14 @@
+<h1>Meetups</h1>
+
 {% if meetup_list %}
     <ul>
     {% for meetup in meetup_list %}
             
-        <li><a href="{% url 'studybuddy_app:meetup.detail' meetup.id %}">{{ meetup.id }}. {{ meetup.title }}</a></li>
+        <li><a href="{% url 'studybuddy_app:meetup.path_meetups_pk' meetup.id %}">{{ meetup.id }}. {{ meetup.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No Meetups are available.</p>
 {% endif %}
+
+<a href="{% url "studybuddy_app:meetup.new" %}">New Meetup</a>

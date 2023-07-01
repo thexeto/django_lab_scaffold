@@ -18,3 +18,6 @@ admin:
 
 django_source:
 - code /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/django
+
+open:
+- open http://127.0.0.1:8000/studybuddy

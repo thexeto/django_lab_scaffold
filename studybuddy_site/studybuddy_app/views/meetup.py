@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.http import HttpResponse
+from django.urls import reverse
+from django.utils import timezone
 
 from ..models import Meetup
+import datetime
 
 
 def path_meetups(request):
@@ -17,7 +20,7 @@ def path_meetups_pk(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
     if request.method == 'GET':
         return detail(request, meetup)
-    elif request.method == 'PUT':
+    elif request.method == 'POST':
         return update(request, meetup)
     elif request.method == 'DELETE':
         return delete(request, meetup)
@@ -33,15 +36,19 @@ def index(request):
 def new(request):
     context = {"meetup": None,
                "http_method": 'POST',
-               "action_url": 'studybuddy_app:meetup.index',
-               "action_id": None,
+               "action_url": reverse('studybuddy_app:meetup.path_meetups'),
                "button_text": 'Create'
                }
     return render(request, "studybuddy_app/meetup_form.html", context)
 
 
 def create(request):
-    context = {"meetup": None,
+
+    title = request.POST["title"]
+    meetup = Meetup(title=title, 
+                    start_time=timezone.now() + datetime.timedelta(days=1))
+    meetup.save()
+    context = {"meetup": meetup,
                "view": "create"}
     return render(request, "studybuddy_app/meetup_detail.html", context)
 
@@ -59,9 +66,8 @@ def update(request, meetup):
 def edit(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
     context = {"meetup": meetup, 
-               "http_method": 'PUT',
-               "action_url": 'studybuddy_app:meetup.detail',
-               "action_id": pk,
+               "http_method": 'POST',
+               "action_url": reverse('studybuddy_app:meetup.path_meetups_pk', args=[pk]),
                "button_text": 'Save'}
     return render(request, "studybuddy_app/meetup_form.html", context)
 
@@ -72,9 +78,10 @@ def detail(request, meetup):
     return render(request, "studybuddy_app/meetup_detail.html", context)
 
 
-def delete(request, meetup):
-    context = {"meetup": meetup} 
-    return HttpResponse("delete meetup")
+def delete(request, pk):
+    meetup = get_object_or_404(Meetup, pk=pk)
+    meetup.delete()
+    return index(request)
 
 
 def rsvp(request, meetup_id):

@@ -1,12 +1,8 @@
-
-{{ meetup }}
-
 <h1>Meetup: {{ meetup.title }}</h1>
-<hr>debug:
-{{ view }}
-{{ dict }}
+<a href="{% url "studybuddy_app:meetup.path_meetups" %}">Index</a>
 <hr>
 <a href="{% url "studybuddy_app:meetup.edit" meetup.id %}">Edit</a> | 
+<a href="{% url "studybuddy_app:meetup.delete" meetup.id %}">Delete</a>
 <hr/>
 <h2>Participants</h2>
 <ul>

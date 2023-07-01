@@ -1,18 +1,11 @@
-
-# https://docs.djangoproject.com/en/4.2/topics/forms/
-<form action="{% url action_url action_id %}" method="{{ http_method }}">
+<h1>Edit Meetup</h1>
+<form action="{{ action_url }}" method="{{ http_method }}">
     {% csrf_token %}
     <fieldset>
         <legend><h1>{{ question.question_text }}</h1></legend>
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        <input type="text" value="{{ meetup.title}}" id="title">
+        Title: <input type="text" value="{{ meetup.title}}" name="title">
 
     </fieldset>
     <input type="submit" value="{{ button_text }}">
 </form>
-
-
-title = models.CharField(max_length=50)
-location = models.CharField(max_length=50, blank=True)
-start_time = models.DateTimeField("start time")
-end_time = models.DateTimeField("end time", null=True, blank=True)

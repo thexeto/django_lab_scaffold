@@ -6,14 +6,14 @@ app_name = "studybuddy_app"
 
 urlpatterns = [
     path("", meetup_views.index, name="index"),
-    path("<int:pk>/", meetup_views.detail, name="meetup.detail"),
+    path("<int:pk>/", meetup_views.detail, name="meetup.path_meetups_pk"),
     path("<int:pk>/rsvp/", meetup_views.rsvp, name="meetup.rsvp"),
 
-    path("meetups", meetup_views.path_meetups, name="meetup.index"),
-    path("meetups/<int:pk>/",
-         meetup_views.path_meetups_pk, name="meetup.detail"),
     path("meetups/new", meetup_views.new, name="meetup.new"),
+    path("meetups/<int:pk>/delete", meetup_views.delete, name="meetup.delete"),
     path("meetups/<int:pk>/edit", meetup_views.edit, name="meetup.edit"),
+    path("meetups/<int:pk>/", meetup_views.path_meetups_pk, name="meetup.path_meetups_pk"),
+    path("meetups", meetup_views.path_meetups, name="meetup.path_meetups"),
 
     path("users/<int:pk>", user_views.detail, name="user.detail")
 ]
@@ -25,7 +25,7 @@ urlpatterns = [
 # create meetup: POST /meetups
 
 # single meetup: GET /meetups/:id
-# update meetup: PUT /meetups/:id
+# update meetup: PUT(POST) /meetups/:id - django does only support GET and POST
 # delete meetup: DELETE /meetups/:id
 
 # new form: GET /meetups/new
