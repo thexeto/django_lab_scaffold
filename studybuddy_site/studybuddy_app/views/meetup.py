@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.http import HttpResponse
 
-from .models import Meetup
+from ..models import Meetup
 
 
 def path_meetups(request):
@@ -18,7 +18,7 @@ def path_meetups_pk(request, pk):
     if request.method == 'GET':
         return detail(request, meetup)
     elif request.method == 'PUT':
-        return edit(request, meetup)
+        return update(request, meetup)
     elif request.method == 'DELETE':
         return delete(request, meetup)
     raise Http404("Page not found.")
@@ -31,22 +31,45 @@ def index(request):
 
 
 def new(request):
-    context = {"meetup": None}
+    context = {"meetup": None,
+               "http_method": 'POST',
+               "action_url": 'studybuddy_app:meetup.index',
+               "action_id": None,
+               "button_text": 'Create'
+               }
     return render(request, "studybuddy_app/meetup_form.html", context)
 
 
 def create(request):
-    return HttpResponse("create meetup")
-
-
-def detail(request, meetup):
-    context = {"meetup": meetup}
+    context = {"meetup": None,
+               "view": "create"}
     return render(request, "studybuddy_app/meetup_detail.html", context)
 
 
-def edit(request, meetup):
-    context = {"meetup": meetup}
+def update(request, meetup):
+    meetup.title = request.POST["title"]
+    meetup.save
+    context = {"meetup": meetup,
+               "dict": request.POST,
+               "view": "update"
+               }
+    return render(request, "studybuddy_app/meetup_detail.html", context)
+
+
+def edit(request, pk):
+    meetup = get_object_or_404(Meetup, pk=pk)
+    context = {"meetup": meetup, 
+               "http_method": 'PUT',
+               "action_url": 'studybuddy_app:meetup.detail',
+               "action_id": pk,
+               "button_text": 'Save'}
     return render(request, "studybuddy_app/meetup_form.html", context)
+
+
+def detail(request, meetup):
+    context = {"meetup": meetup,
+               "view": "detail"}
+    return render(request, "studybuddy_app/meetup_detail.html", context)
 
 
 def delete(request, meetup):

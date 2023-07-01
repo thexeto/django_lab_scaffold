@@ -2,7 +2,12 @@
 {{ meetup }}
 
 <h1>Meetup: {{ meetup.title }}</h1>
-
+<hr>debug:
+{{ view }}
+{{ dict }}
+<hr>
+<a href="{% url "studybuddy_app:meetup.edit" meetup.id %}">Edit</a> | 
+<hr/>
 <h2>Participants</h2>
 <ul>
 {% for participant in meetup.participants.all %}
