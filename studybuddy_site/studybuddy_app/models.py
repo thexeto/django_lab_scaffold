@@ -5,14 +5,34 @@ import datetime
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from .widgets import HTML5DateTimeInput
+
+# https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.Field.from_db_value
+   
+   
+class ConvertingDateTimeField(models.DateTimeField):
+    widget = HTML5DateTimeInput
+  
+    def to_python(self, value):
+        if type(value) == str:
+            date_time = datetime.datetime.fromisoformat(value)
+            value = date_time.isoformat(' ', timespec='minutes')
+        return value
+
+
+def tomorrow():
+    return timezone.now() + datetime.timedelta(days=1)
+
+# https://docs.djangoproject.com/en/4.2/ref/models/fields/#integerfield
+# https://docs.djangoproject.com/en/4.2/ref/models/fields/#durationfield
+# https://docs.python.org/3/library/datetime.html#datetime.timedelta
 
 
 class Meetup(models.Model):
     title = models.CharField(max_length=50)
     location = models.CharField(max_length=50, blank=True)
-    start_time = models.DateTimeField("start time")
-    end_time = models.DateTimeField("end time", null=True, blank=True)
-
+    start_time = ConvertingDateTimeField("start time", default=tomorrow)
+    duration = models.DurationField(default=datetime.timedelta(hours=1))
     participants = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
     class Meta:

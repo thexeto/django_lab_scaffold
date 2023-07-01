@@ -10,8 +10,9 @@ class MeetupAdmin(admin.ModelAdmin):
     # fields = ["location", "title", "start_time", "end_time"]
     
     fieldsets = [
-        (None, {"fields": ["location", "title"]}),
-        ("Date information", {"fields": ["start_time", "end_time"]}),
+        ("What?", {"fields": ["title"]}),
+        ("When?", {"fields": ["start_time", "duration"]}),
+        ("Where?", {"fields": ["location"]}),
     ]
     list_display = ["title", "start_time"]
 

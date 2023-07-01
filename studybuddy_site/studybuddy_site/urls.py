@@ -21,5 +21,6 @@ from studybuddy_app.views.home import HomePageView
 urlpatterns = [
     path('studybuddy/', include('studybuddy_app.urls')),
     path('admin/', admin.site.urls),
+    path("__debug__/", include("debug_toolbar.urls")),
     path('', HomePageView.as_view(), name='home'),
 ]

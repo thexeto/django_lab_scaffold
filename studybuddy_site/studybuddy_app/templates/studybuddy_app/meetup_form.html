@@ -6,7 +6,6 @@
 <form action="{{ action_url }}" method="{{ http_method }}">
     {% csrf_token %}
     {{ meetup_form }}
-    
     <input type="submit" value="{{ button_text }}">
     </div>
 </form>
