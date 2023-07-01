@@ -4,7 +4,7 @@
     <ul>
     {% for meetup in meetup_list %}
             
-        <li><a href="{% url 'studybuddy_app:meetup.path_meetups_pk' meetup.id %}">{{ meetup.id }}. {{ meetup.title }}</a></li>
+        <li><a href="{% url 'studybuddy_app:meetup.path_meetups_pk' meetup.id %}">{{ meetup.title }} (id: {{ meetup.id }})</a></li>
     {% endfor %}
     </ul>
 {% else %}

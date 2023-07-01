@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.utils import timezone
 
@@ -28,7 +27,7 @@ def path_meetups_pk(request, pk):
 
 
 def index(request):
-    meetup_list = Meetup.objects.order_by("start_time")[:10]
+    meetup_list = Meetup.objects.order_by("start_time") # [:10]
     context = {"meetup_list": meetup_list}
     return render(request, "studybuddy_app/meetup_index.html", context)
 
@@ -43,24 +42,21 @@ def new(request):
 
 
 def create(request):
-
     title = request.POST["title"]
-    meetup = Meetup(title=title, 
+    meetup = Meetup(title=title,
                     start_time=timezone.now() + datetime.timedelta(days=1))
     meetup.save()
-    context = {"meetup": meetup,
-               "view": "create"}
-    return render(request, "studybuddy_app/meetup_detail.html", context)
+    return HttpResponseRedirect(
+        reverse("studybuddy_app:meetup.path_meetups_pk",
+                args=[meetup.id]))
 
 
 def update(request, meetup):
     meetup.title = request.POST["title"]
-    meetup.save
-    context = {"meetup": meetup,
-               "dict": request.POST,
-               "view": "update"
-               }
-    return render(request, "studybuddy_app/meetup_detail.html", context)
+    meetup.save()
+    return HttpResponseRedirect(
+        reverse("studybuddy_app:meetup.path_meetups_pk",
+                args=[meetup.id]))
 
 
 def edit(request, pk):

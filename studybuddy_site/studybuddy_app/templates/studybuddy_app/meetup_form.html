@@ -4,7 +4,7 @@
     <fieldset>
         <legend><h1>{{ question.question_text }}</h1></legend>
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        Title: <input type="text" value="{{ meetup.title}}" name="title">
+        Title: <input type="text" value="{{ meetup.title }}" name="title" />
 
     </fieldset>
     <input type="submit" value="{{ button_text }}">

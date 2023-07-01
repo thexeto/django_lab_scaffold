@@ -27,7 +27,6 @@
     User.objects.all()
 
     Meetup.objects.all()
-
     
     m = Meetup(title="zusammen lernen")
     m.start_date = timezone.now()
