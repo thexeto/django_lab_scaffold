@@ -20,3 +20,4 @@ tests/report/
 
 db.sqlite3
 .vscode
+geckodriver.log

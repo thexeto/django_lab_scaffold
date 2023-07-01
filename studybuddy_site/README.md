@@ -66,3 +66,10 @@
     
     Meetup.objects.all().filter(title__startswith="Info")
 
+## Fixtures
+
+
+    python manage.py dumpdata auth.User --format yaml > studybuddy_app/fixtures/user.yaml
+
+    python manage.py dumpdata studybuddy_app.Meetup --format yaml > studybuddy_app/fixtures/meetup.yaml
+    

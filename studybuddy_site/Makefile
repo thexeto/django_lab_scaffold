@@ -24,3 +24,15 @@ open:
 
 test:
 - python3 manage.py test studybuddy_app
+
+systemtest:
+- python3 manage.py test studybuddy_app.tests_selenium.test_create_meetup.MySeleniumTests
+
+pytest:
+- pytest studybuddy_app/tests
+
+pytest_all:
+- pytest studybuddy_app
+
+pytest_system:
+- pytest studybuddy_app/tests_selenium

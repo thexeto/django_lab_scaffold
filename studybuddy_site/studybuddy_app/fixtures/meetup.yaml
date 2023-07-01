@@ -1,0 +1,62 @@
+- model: studybuddy_app.meetup
+  pk: 1
+  fields:
+    title: Mathe Lernen
+    location: ''
+    start_time: 2023-06-29 14:52:06+00:00
+    end_time: null
+    participants:
+    - 1
+    - 2
+    - 3
+    - 4
+- model: studybuddy_app.meetup
+  pk: 8
+  fields:
+    title: Info1 Lernen
+    location: ''
+    start_time: 2023-06-29 17:09:06+00:00
+    end_time: null
+    participants:
+    - 2
+    - 4
+- model: studybuddy_app.meetup
+  pk: 9
+  fields:
+    title: Info2 Lernen
+    location: ''
+    start_time: 2023-06-30 15:11:56.480607+00:00
+    end_time: null
+    participants: []
+- model: studybuddy_app.meetup
+  pk: 10
+  fields:
+    title: Info3 Lernen
+    location: ''
+    start_time: 2023-07-02 15:12:13.374301+00:00
+    end_time: null
+    participants: []
+- model: studybuddy_app.meetup
+  pk: 24
+  fields:
+    title: Info1 lernen
+    location: ''
+    start_time: 2023-07-02 13:45:32.239470+00:00
+    end_time: null
+    participants: []
+- model: studybuddy_app.meetup
+  pk: 25
+  fields:
+    title: Info2 lernen
+    location: ''
+    start_time: 2023-07-02 13:45:41.552349+00:00
+    end_time: null
+    participants: []
+- model: studybuddy_app.meetup
+  pk: 26
+  fields:
+    title: Mathe lernen
+    location: ''
+    start_time: 2023-07-02 13:45:50.617300+00:00
+    end_time: null
+    participants: []
