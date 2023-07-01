@@ -27,7 +27,8 @@ def path_meetups_pk(request, pk):
 
 
 def index(request):
-    meetup_list = Meetup.objects.order_by("start_time") # [:10]
+    meetup_list = Meetup.objects.filter(start_time__gte = timezone.now())
+    #meetup_list = Meetup.objects.order_by("start_time") # [:10]
     context = {"meetup_list": meetup_list}
     return render(request, "studybuddy_app/meetup_index.html", context)
 
