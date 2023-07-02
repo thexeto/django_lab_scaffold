@@ -76,10 +76,10 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def test_participate(self):
         meetup = create_meetup('new meetup', 5)
-        self.get_path('studybuddy_app:meetup.path_meetups_pk', args=(meetup.pk,))
+        self.get_path('studybuddy_app:meetup.detail', args=(meetup.pk,))
         
         self.selenium.find_element(By.NAME, 'rsvp').click()
-        self.get_path('studybuddy_app:meetup.path_meetups_pk', args=(meetup.pk,))
+        self.get_path('studybuddy_app:meetup.detail', args=(meetup.pk,))
         self.assert_found()
         body = self.selenium.find_element(By.TAG_NAME, "body")
         assert "trick" in body.text

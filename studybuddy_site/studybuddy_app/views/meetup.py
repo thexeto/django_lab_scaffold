@@ -39,7 +39,7 @@ class MeetupDetailView(LoginRequiredMixin, generic.DetailView):
         return _update(request, meetup)
 
 
-def path_meetups_pk(request, pk):
+def detail(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
     if request.method == 'GET':
         return _detail(request, meetup)
@@ -57,7 +57,7 @@ def new(request):
     context = {"meetup": None,
                "meetup_form": meetup_form,
                "http_method": 'POST',
-               "action_url": reverse('studybuddy_app:meetup.path_meetups'),
+               "action_url": reverse('studybuddy_app:meetup.list'),
                "button_text": 'Create'
                }
     return render(request, "studybuddy_app/meetup_form.html", context)
@@ -71,10 +71,10 @@ def edit(request, pk):
 
 def _render_meetup_form(request, meetup=None, old_meetup_form=None, pk=None):
     if pk is None:
-        action_url = reverse('studybuddy_app:meetup.path_meetups')
+        action_url = reverse('studybuddy_app:meetup.list')
     else:
         action_url = reverse(
-            'studybuddy_app:meetup.path_meetups_pk',
+            'studybuddy_app:meetup.detail',
             args=[pk])
         
     if old_meetup_form is None:
@@ -105,7 +105,7 @@ def _create(request):
     #                 start_time=timezone.now() + datetime.timedelta(days=1))
     # meetup.save()
     # return HttpResponseRedirect(
-    #     reverse("studybuddy_app:meetup.path_meetups_pk",
+    #     reverse("studybuddy_app:meetup.detail",
     #             args=[meetup.id]))
     meetup_form = MeetupForm(request.POST, request.FILES)
     meetup = _save_meetup(meetup_form=meetup_form)
@@ -113,7 +113,7 @@ def _create(request):
         messages.success(request, ('Your meetup was successfully added!'))
 
         return HttpResponseRedirect(
-            reverse("studybuddy_app:meetup.path_meetups_pk",
+            reverse("studybuddy_app:meetup.detail",
                     args=[meetup.id]))
     else:
         messages.error(request, 'Error saving form')
@@ -127,7 +127,7 @@ def _update(request, meetup):
         messages.success(request, ('Your meetup was successfully _updated!'))
         #return _render_meetup(request, meetup)
         return HttpResponseRedirect(
-            reverse("studybuddy_app:meetup.path_meetups_pk",
+            reverse("studybuddy_app:meetup.detail",
                     args=[meetup.id]))
     else:
         messages.error(request, 'Error saving form')
@@ -149,7 +149,7 @@ def delete(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
     meetup.delete()
     return HttpResponseRedirect(
-        reverse("studybuddy_app:meetup.path_meetups"))
+        reverse("studybuddy_app:meetup.list"))
 
 @login_required
 def rsvp(request, pk):
@@ -157,5 +157,5 @@ def rsvp(request, pk):
         meetup = Meetup.objects.get(pk=pk)
         meetup.participants.add(request.user)
     return HttpResponseRedirect(
-            reverse("studybuddy_app:meetup.path_meetups_pk",
+            reverse("studybuddy_app:meetup.detail",
                     args=[meetup.id]))

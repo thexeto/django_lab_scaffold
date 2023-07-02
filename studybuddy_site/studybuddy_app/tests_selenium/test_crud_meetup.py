@@ -103,19 +103,19 @@ class MySeleniumTests(StaticLiveServerTestCase):
         meetup_title_field = self.selenium.find_element(By.NAME, "title")
         meetup_title_field.send_keys(meetup_title_new)
         self.selenium.find_element(By.XPATH, '//input[@type="submit"]').click()
-        self.get_path('studybuddy_app:meetup.path_meetups_pk', args=(meetup.pk,))
+        self.get_path('studybuddy_app:meetup.detail', args=(meetup.pk,))
         self.assert_found()
         body = self.selenium.find_element(By.TAG_NAME, "body")
         assert meetup_title_new in body.text
 
     def test_delete_meetup(self):
         meetup = create_meetup('meetup to delete', 5)
-        self.get_path('studybuddy_app:meetup.path_meetups_pk', args=(meetup.pk,))
+        self.get_path('studybuddy_app:meetup.detail', args=(meetup.pk,))
         body = self.selenium.find_element(By.TAG_NAME, "body")
         assert meetup.title in body.text
         delete = self.selenium.find_element(By.LINK_TEXT, 'Delete')
         delete.click()
-        self.get_path('meetup.path_meetups')
+        self.get_path('meetup.list')
         #self.selenium.get(f"{self.live_server_url}/studybuddy/meetups")
         body = self.selenium.find_element(By.TAG_NAME, "body")
         self.assert_found()

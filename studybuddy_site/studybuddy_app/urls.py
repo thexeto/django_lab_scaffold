@@ -6,18 +6,18 @@ from .views.meetup import MeetupDetailView
 app_name = "studybuddy_app"
 
 urlpatterns = [
-    
+
     path("meetups/<int:pk>/rsvp/", meetup_views.rsvp, name="meetup.rsvp"),
 
-    path("meetups/<int:pk>/", MeetupDetailView.as_view(), name="meetup.path_meetups_pk"),
-    path("meetups", MeetupListView.as_view(), name="meetup.path_meetups"),
-    
+    path("meetups/<int:pk>/", MeetupDetailView.as_view(), name="meetup.detail"),
+    path("meetups", MeetupListView.as_view(), name="meetup.list"),
+
     path("meetups/new", meetup_views.new, name="meetup.new"),
     path("meetups/<int:pk>/delete", meetup_views.delete, name="meetup.delete"),
     path("meetups/<int:pk>/edit", meetup_views.edit, name="meetup.edit"),
-    
+
     path("", MeetupListView.as_view(), name="index"),
- 
+
     path("users/<int:pk>", user_views.detail, name="user.detail")
 ]
 

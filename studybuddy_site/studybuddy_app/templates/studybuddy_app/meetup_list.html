@@ -18,7 +18,7 @@
     <tbody>
     {% for meetup in meetup_list %}
     <tr>
-        <td align="left"><a href="{% url 'studybuddy_app:meetup.path_meetups_pk' meetup.id %}">{{ meetup.title }}</a></td>
+        <td align="left"><a href="{% url 'studybuddy_app:meetup.detail' meetup.id %}">{{ meetup.title }}</a></td>
         <td align="left">(id: {{ meetup.id }})</td>
       </tr>
     {% endfor %}

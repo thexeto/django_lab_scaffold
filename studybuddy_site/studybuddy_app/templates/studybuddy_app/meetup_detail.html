@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>Meetup: {{ meetup.title }}</h1>
-<a href="{% url "studybuddy_app:meetup.path_meetups" %}">Index</a> |
+<a href="{% url "studybuddy_app:meetup.list" %}">Index</a> |
 <a href="{% url "studybuddy_app:meetup.edit" meetup.id %}">Edit</a> | 
 <a href="{% url "studybuddy_app:meetup.delete" meetup.id %}">Delete</a>
 <hr/>
