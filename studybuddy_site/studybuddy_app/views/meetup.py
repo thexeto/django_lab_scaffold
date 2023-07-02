@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 
-class IndexView(LoginRequiredMixin, generic.ListView):
+class MeetupListView(LoginRequiredMixin, generic.ListView):
     model = Meetup
 
     def get_queryset(self):
@@ -23,11 +23,11 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         return _create(request)
 
 
-class DetailView(LoginRequiredMixin, generic.DetailView):
+class MeetupDetailView(LoginRequiredMixin, generic.DetailView):
     model = Meetup
     
     def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
+        context = super(MeetupDetailView, self).get_context_data(**kwargs)
         meetup = self.get_object()
         participants = meetup.participants.all()
         context['participants'] = participants
