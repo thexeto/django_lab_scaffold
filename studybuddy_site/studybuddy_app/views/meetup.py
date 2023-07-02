@@ -45,7 +45,8 @@ def path_meetups_pk(request, pk):
 
 @login_required
 def new(request):
-    meetup_form = MeetupForm()
+    meetup = Meetup()
+    meetup_form = MeetupForm(instance=meetup)
     context = {"meetup": None,
                "meetup_form": meetup_form,
                "http_method": 'POST',
@@ -143,5 +144,10 @@ def delete(request, pk):
         reverse("studybuddy_app:meetup.path_meetups"))
 
 @login_required
-def rsvp(request, meetup_id):
-    return HttpResponse("You rsvp on meetup %s." % meetup_id)
+def rsvp(request, pk):
+    if request.user.is_authenticated:
+        meetup = Meetup.objects.get(pk=pk)
+        meetup.participants.add(request.user)
+    return HttpResponseRedirect(
+            reverse("studybuddy_app:meetup.path_meetups_pk",
+                    args=[meetup.id]))

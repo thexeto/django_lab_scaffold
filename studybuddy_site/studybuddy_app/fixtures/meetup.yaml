@@ -25,7 +25,7 @@
   fields:
     title: Info2 Lernen
     location: ''
-    start_time: 2023-06-30 15:11:56.480607+00:00
+    start_time: 2023-09-30 15:11:56.480607+00:00
     duration: 01:00:00
     participants: []
 - model: studybuddy_app.meetup
@@ -33,30 +33,15 @@
   fields:
     title: Info3 Lernen
     location: ''
-    start_time: 2023-07-02 15:12:13.374301+00:00
+    start_time: 2023-10-02 15:12:13.374301+00:00
     duration: 01:00:00
     participants: []
 - model: studybuddy_app.meetup
   pk: 24
   fields:
-    title: Info1 lernen
+    title: Info3 lernen
     location: ''
-    start_time: 2023-07-02 13:45:32.239470+00:00
+    start_time: 2023-08-02 13:45:32.239470+00:00
     duration: 01:00:00
     participants: []
-- model: studybuddy_app.meetup
-  pk: 25
-  fields:
-    title: Info2 lernen
-    location: ''
-    start_time: 2023-07-02 13:45:41.552349+00:00
-    duration: 01:00:00
-    participants: []
-- model: studybuddy_app.meetup
-  pk: 26
-  fields:
-    title: Mathe lernen
-    location: ''
-    start_time: 2023-07-02 13:45:50.617300+00:00
-    duration: 01:00:00
-    participants: []
+

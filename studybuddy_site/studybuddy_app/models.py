@@ -22,7 +22,7 @@ class ConvertingDateTimeField(models.DateTimeField):
 
 def tomorrow():
     dt = timezone.now() + datetime.timedelta(days=1)
-    dt.tzinfo = timezone.utc
+    dt = dt.replace(tzinfo=datetime.timezone.utc)
     return dt
 
 # https://docs.djangoproject.com/en/4.2/ref/models/fields/#integerfield
@@ -33,7 +33,7 @@ def tomorrow():
 class Meetup(models.Model):
     title = models.CharField(max_length=50)
     location = models.CharField(max_length=50, blank=True)
-    start_time = ConvertingDateTimeField("start time", default=timezone.now())
+    start_time = ConvertingDateTimeField("start time", default=tomorrow)
     duration = models.DurationField(default=datetime.timedelta(hours=1))
     participants = models.ManyToManyField(settings.AUTH_USER_MODEL)
     

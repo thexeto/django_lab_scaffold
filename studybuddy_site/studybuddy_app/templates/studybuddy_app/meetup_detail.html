@@ -12,8 +12,10 @@
 <p>When?: {{ meetup.start_time }}</p>
 <p>Duration: {{ meetup.duration }}</p>
 <hr/>
-<h2>Participants</h2>
 
+<a href="{% url 'studybuddy_app:meetup.rsvp' meetup.id %}" name="rsvp">Participate</a>
+
+<h2>Participants</h2>
 
 {% for participant in meetup.participants.all %}
 
