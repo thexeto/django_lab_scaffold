@@ -1,12 +1,13 @@
 .PHONY : django migrate
 .RECIPEPREFIX = -
 
-port=4711
-python=./venv/bin/python
+venv=.venv_studybuddy
+port=8000
+python=./${venv}/bin/python
 
 django:
 - open http://127.0.0.1:${port}/studybuddy
-- ./venv/bin/python manage.py runserver ${port}
+- ${python} manage.py runserver ${port}
 
 makemigration:
 - ${python} manage.py makemigrations studybuddy_app
@@ -40,3 +41,7 @@ pytest_system:
 
 venv_install:
 - ./venv/bin/pip install -r requirements.txt
+
+load_fixtures:
+- ${python} manage.py loaddata studybuddy_app/fixtures/user.yaml
+- ${python} manage.py loaddata studybuddy_app/fixtures/user.yaml

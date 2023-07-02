@@ -4,13 +4,13 @@
     password: pbkdf2_sha256$600000$Gd8emZEXL5dfSeiBnvp7io$KzWxZrD+MP670mTh+YTWJJhqYs9JWuiXxw9HJhDrXPQ=
     last_login: 2023-06-29 14:43:00.651435+00:00
     is_superuser: true
-    username: kleinen
+    username: admin
     first_name: ''
     last_name: ''
-    email: kleinen@htw-berlin.de
+    email: admin@host.com
     is_staff: true
     is_active: true
-    date_joined: 2023-06-29 14:26:08.890414+00:00
+    date_joined: 2023-07-01 10:00:00+00:00
     groups: []
     user_permissions: []
 - model: auth.user
@@ -25,7 +25,7 @@
     email: ''
     is_staff: false
     is_active: true
-    date_joined: 2023-06-29 14:43:23+00:00
+    date_joined: 2023-07-01 10:00:00+00:00
     groups: []
     user_permissions: []
 - model: auth.user
@@ -40,7 +40,7 @@
     email: ''
     is_staff: false
     is_active: true
-    date_joined: 2023-06-29 14:43:32+00:00
+    date_joined: 2023-07-01 10:00:00+00:00
     groups: []
     user_permissions: []
 - model: auth.user
@@ -55,6 +55,6 @@
     email: ''
     is_staff: false
     is_active: true
-    date_joined: 2023-06-29 14:44:33+00:00
+    date_joined: 2023-07-01 10:00:00+00:00
     groups: []
     user_permissions: []
