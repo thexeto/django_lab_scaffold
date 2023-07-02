@@ -20,7 +20,16 @@
         <a class="nav-link active" aria-current="page" href="/">Home</a>
         <a class="nav-link" href="/studybuddy/">StudyBuddy</a>
         <a class="nav-link" href="/admin/">Admin</a>
-        <a class="nav-link disabled">Disabled</a>
+
+
+        {% if user.is_authenticated %}
+          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+        {% else %}
+         <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+         <a class="nav-link" href="{% url 'login' %}">Log In</a> 
+        {% endif %}
+
+       
         {% endblock %}
     </nav>
 
@@ -29,7 +38,7 @@
           <div class="col-1">
 
           </div>
-          <div class="col-11 justify-content-start" id="content" >
+          <div class="col-11 justify-content-start" id="content" align="left" >
                 {% block content %}{% endblock %}
 
           </div>

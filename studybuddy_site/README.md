@@ -87,15 +87,23 @@
 
     python manage.py dumpdata studybuddy_app.Meetup --natural-foreign --format yaml > studybuddy_app/fixtures/meetup.yaml
 
+## Authentication and Authorization
+### Login/Authentication
 
-## Login/Authorization
-
-### login-logout tutorial
+#### login-logout tutorial
 
 https://learndjango.com/tutorials/django-login-and-logout-tutorial
 
-### signup tutorial
+#### signup tutorial
 
 https://learndjango.com/tutorials/django-signup-tutorial
 
-    
+####  password-reset 
+
+omitted. can be done via admin app for now.
+
+https://learndjango.com/tutorials/django-password-reset-tutorial
+
+### Authorization
+
+https://docs.djangoproject.com/en/4.2/topics/auth/

@@ -8,12 +8,13 @@ from django.contrib import messages
 from ..forms import MeetupForm
 from ..models import Meetup
 from studybuddy_app.common.date import date_from_form
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # https://docs.djangoproject.com/en/4.2/ref/class-based-views/generic-display/#listview
 
 
-class IndexView(generic.ListView):
+class IndexView(LoginRequiredMixin, generic.ListView):
     model = Meetup
 
     def get_queryset(self):
@@ -24,7 +25,7 @@ class IndexView(generic.ListView):
         return create(request)
 
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Meetup
 
     def post(self, request, *args, **kwargs):
@@ -42,7 +43,7 @@ def path_meetups_pk(request, pk):
         return delete(request, meetup)
     raise Http404("Page not found.")
 
-
+@login_required
 def new(request):
     meetup_form = MeetupForm()
     context = {"meetup": None,
@@ -53,7 +54,7 @@ def new(request):
                }
     return render(request, "studybuddy_app/meetup_form.html", context)
 
-
+@login_required
 def edit(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
     return render_meetup_form(request, meetup=meetup, pk=pk)
@@ -134,13 +135,13 @@ def detail(request, meetup):
                "view": "detail"}
     return render(request, "studybuddy_app/meetup_detail.html", context)
 
-
+@login_required
 def delete(request, pk):
     meetup = get_object_or_404(Meetup, pk=pk)
     meetup.delete()
     return HttpResponseRedirect(
         reverse("studybuddy_app:meetup.path_meetups"))
 
-
+@login_required
 def rsvp(request, meetup_id):
     return HttpResponse("You rsvp on meetup %s." % meetup_id)
