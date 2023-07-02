@@ -39,15 +39,7 @@ class MeetupDetailView(LoginRequiredMixin, generic.DetailView):
         return _update(request, meetup)
 
 
-def detail(request, pk):
-    meetup = get_object_or_404(Meetup, pk=pk)
-    if request.method == 'GET':
-        return _detail(request, meetup)
-    elif request.method == 'POST':
-        return _update(request, meetup)
-    elif request.method == 'DELETE':
-        return delete(request, meetup)
-    raise Http404("Page not found.")
+
 
 
 @login_required
