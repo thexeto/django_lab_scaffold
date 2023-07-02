@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Edit Meetup{% endblock %}
+{% block title %}{{ title_text }} Meetup{% endblock %}
 {% block content %}
 
-<h1>Edit Meetup</h1>
+<h1>{{ title_text }} Meetup</h1>
 <form action="{{ action_url }}" method="{{ http_method }}">
     {% csrf_token %}
     {{ meetup_form }}

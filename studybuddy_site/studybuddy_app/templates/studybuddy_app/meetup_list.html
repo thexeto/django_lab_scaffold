@@ -3,8 +3,13 @@
 {% block title %}Meetups{% endblock %}
 {% block content %}
 
-<h1>Meetups</h1>
-<a href="{% url "studybuddy_app:meetup.new" %}">New Meetup</a>
+<h1>{% if all_meetups %}All{% else %} Upcoming{% endif %}
+  Meetups</h1>
+  
+<a href="{% url "studybuddy_app:meetup.new" %}">New Meetup</a> |
+<a href="{% url 'studybuddy_app:meetup.list'%}{% if not all_meetups %}?meetups=all{% endif %}">
+show {% if all_meetups %}upcoming{% else %}all{% endif %}
+</a>
 
 
 {% if meetup_list %}
