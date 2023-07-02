@@ -66,10 +66,24 @@
     
     Meetup.objects.all().filter(title__startswith="Info")
 
+## ManyToMany
+
+    from studybuddy_app.models import *
+    from django.contrib.auth.models import User
+
+    from django.contrib.auth import get_user_model
+    get_user_model()
+    --> <class 'django.contrib.auth.models.User'>
+    
+    from django.contrib.auth.models import User
+    User.objects.all()
+
+    from django.contrib.auth.models import User
+
 ## Fixtures
 
 
-    python manage.py dumpdata auth.User --format yaml > studybuddy_app/fixtures/user.yaml
+    python manage.py dumpdata auth.User --natural-foreign --format yaml > studybuddy_app/fixtures/user.yaml
 
-    python manage.py dumpdata studybuddy_app.Meetup --format yaml > studybuddy_app/fixtures/meetup.yaml
+    python manage.py dumpdata studybuddy_app.Meetup --natural-foreign --format yaml > studybuddy_app/fixtures/meetup.yaml
     

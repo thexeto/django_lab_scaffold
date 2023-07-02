@@ -44,4 +44,9 @@ venv_install:
 
 load_fixtures:
 - ${python} manage.py loaddata studybuddy_app/fixtures/user.yaml
-- ${python} manage.py loaddata studybuddy_app/fixtures/user.yaml
+- ${python} manage.py loaddata studybuddy_app/fixtures/meetup.yaml
+- ${python} manage.py runscript -v2 link_fixtures
+
+dump_fixtures:
+- ${python} manage.py dumpdata --natural-foreign --format yaml studybuddy_app
+- ${python} python manage.py dumpdata auth.User --natural-primary --format yaml
