@@ -11,6 +11,8 @@ fi
 while true; do
     clear
     make pytest_all
+    #make pytest_system
+    # make pytest
     # use this to stop at first failure:
     # pytest -x -vv $subdir
     fswatch ./**/*.py  -1

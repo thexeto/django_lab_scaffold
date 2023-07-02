@@ -27,20 +27,23 @@ open:
 test:
 - ${python} manage.py test studybuddy_app
 
+test_unit:
+- ${python} manage.py test studybuddy_app/tests
+
 systemtest:
 - ${python} manage.py test studybuddy_app.tests_selenium.test_create_meetup.MySeleniumTests
 
 pytest:
-- pytest studybuddy_app/tests
+- ${python} -m pytest studybuddy_app/tests
 
 pytest_all:
-- pytest studybuddy_app
+- ${python} -m pytest studybuddy_app
 
 pytest_system:
-- pytest studybuddy_app/tests_selenium
+- ${python} -m pytest studybuddy_app/tests_selenium
 
 venv_install:
-- ./venv/bin/pip install -r requirements.txt
+- ${python} -m pip install -r requirements.txt
 
 load_fixtures:
 - ${python} manage.py loaddata studybuddy_app/fixtures/user.yaml

@@ -4,19 +4,9 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 from studybuddy_app.models import Meetup
+from .helper import create_meetup, LoggedInTests
 
-
-def create_meetup(meetup_title, meetup_location="Room 11", days=2):
-    start_time = timezone.now() + datetime.timedelta(days=days)
-    end_time = start_time + datetime.timedelta(hours=2)
-    return Meetup.objects.create(
-        title=meetup_title,
-        location=meetup_location,
-        start_time=start_time,
-        end_time=end_time)
-
-
-class MeetupIndexViewTests(TestCase):
+class MeetupIndexViewTests(LoggedInTests):
     def test_no_meetups(self):
         response = self.client.get(
             reverse("studybuddy_app:meetup.path_meetups"))
@@ -58,6 +48,7 @@ class MeetupIndexViewTests(TestCase):
         meetup_2 = create_meetup(meetup_title="Future meetup 2", days=3)
         response = self.client.get(
             reverse("studybuddy_app:meetup.path_meetups"))
+        self.assertIsNotNone(response.context)
         self.assertQuerySetEqual(
             response.context["meetup_list"], [meetup_1, meetup_2])
         

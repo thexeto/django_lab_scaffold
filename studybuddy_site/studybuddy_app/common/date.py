@@ -1,4 +1,6 @@
 import datetime
+from django.utils import timezone
+
 
 
 def date_to_form(date):
@@ -14,7 +16,9 @@ def date_to_form(date):
 
 def date_from_form(date):
     if type(date) == str:
-        date = datetime.datetime.fromisoformat(date) # '2023-07-25T12:00'
+        date = datetime.datetime.fromisoformat(date)
+        date = date.replace(tzinfo=datetime.timezone.utc)
+        
     return date
 
 
