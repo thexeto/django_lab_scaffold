@@ -94,6 +94,8 @@
 
 https://learndjango.com/tutorials/django-login-and-logout-tutorial
 
+### signup tutorial
 
+https://learndjango.com/tutorials/django-signup-tutorial
 
     
