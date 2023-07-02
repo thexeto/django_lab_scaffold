@@ -23,8 +23,18 @@ You do not need to use a virtual environment - see [venv](https://docs.python.or
 ### Prepare the Database: Migrate and Create Testdata
 
     python manage.py migrate
+
+#### use fixture data:
+
     python manage.py loaddata studybuddy_app/fixtures/user.yaml
     python manage.py loaddata studybuddy_app/fixtures/meetup.yaml
+    python manage.py runscript -v2 link_fixtures
+
+the added superuser will be admin with password geheim12.
+#### create data yourself:
+or, start with adding a superuser and add data yourself using the admin app
+
+    python manage.py createsuperuser
 
 ### Start the server 
 
