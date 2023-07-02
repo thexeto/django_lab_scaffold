@@ -132,3 +132,6 @@ FORM_RENDERER = 'studybuddy_app.forms.CustomFormRenderer'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"

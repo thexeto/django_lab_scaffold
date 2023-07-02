@@ -2,11 +2,24 @@
 {% block title %}StudyBuddy{% endblock %}
 {% block content %}
 
-Djang Scaffold Site & App for StudyBuddy
+Django Scaffold Site & App for StudyBuddy
+
+<hr/>
+{% if user.is_authenticated %}
+  Hi {{ user.username }}! 
+ | <a href="{% url 'logout' %}">Log Out</a> | 
+  <a href="{% url 'login' %}">Log In as other user</a>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+
 <hr/>
 <a href="/studybuddy/">StudyBuddy</a>
 <hr/>
 <a href="/admin">Admin Site</a>
 <hr/>
+
+
 
 {% endblock content %}

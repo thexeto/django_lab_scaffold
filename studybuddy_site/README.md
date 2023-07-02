@@ -86,4 +86,14 @@
     python manage.py dumpdata auth.User --natural-foreign --format yaml > studybuddy_app/fixtures/user.yaml
 
     python manage.py dumpdata studybuddy_app.Meetup --natural-foreign --format yaml > studybuddy_app/fixtures/meetup.yaml
+
+
+## Login/Authorization
+
+### login-logout tutorial
+
+https://learndjango.com/tutorials/django-login-and-logout-tutorial
+
+
+
     
