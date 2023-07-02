@@ -17,7 +17,7 @@
 
 <h2>Participants</h2>
 
-{% for participant in meetup.participants.all %}
+{% for participant in participants %}
 
 <p>
     <a href="{% url 'studybuddy_app:user.detail' participant.id %}">

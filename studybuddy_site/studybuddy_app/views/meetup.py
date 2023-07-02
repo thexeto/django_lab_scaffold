@@ -25,6 +25,14 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Meetup
+    
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        meetup = self.get_object()
+        participants = meetup.participants.all()
+        context['participants'] = participants
+
+        return context
 
     def post(self, request, *args, **kwargs):
         meetup = self.get_object()
