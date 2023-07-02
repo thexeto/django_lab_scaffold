@@ -13,17 +13,17 @@
 <p>Duration: {{ meetup.duration }}</p>
 <hr/>
 <h2>Participants</h2>
-<ul>
-    {{ meetup.participants }}
+
+
 {% for participant in meetup.participants.all %}
 
-<li>
+<p>
     <a href="{% url 'studybuddy_app:user.detail' participant.id %}">
         {{ participant.get_full_name }}({{ participant.get_username }})
     </a>
-</li>
+</p>
 
 {% endfor %}
-</ul>
+
 
 {% endblock content %}
